@@ -29,7 +29,7 @@ public class CursoDb {
 
     // busca o curso com base numero da sala;
     public List<Curso> findBySala(int sala){
-        return cursos.stream()
+        return (List<Curso>) cursos.stream()
                 .filter(curso -> curso.getNumeroSala() == sala)
                 .toList();
     }
@@ -43,9 +43,9 @@ public class CursoDb {
     }
 
     // insere o funcionário
-    public boolean insert(Curso curso){
+    public Curso insert(Curso curso){
         cursos.add(curso);
-        return true;
+        return curso;
     }
 
     // insert de aluno novo no curso
