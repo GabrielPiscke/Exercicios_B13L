@@ -68,35 +68,41 @@ public class CursoController {
         }
         boolean result = repository.insertAlunoMelhorado(curso, aluno);
         if(result){
-            return ResponseEntity.status(HttpStatus.CREATED).body("Aluno inserido com sucesso");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Aluno inserido com sucesso!");
         }
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body( "Não foi possível inserir alunos");
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body( "Não foi possível inserir alunos!");
     }
 
     public ResponseEntity<String> update(int id, Curso curso){
-        Boolean result = repository.update(id, curso);
-        if(result) {
-            return ResponseEntity.status(HttpStatus.OK).body("Curso atualizado com sucesso!");
+        Curso curso1 = repository.getById(id);
+        if(curso1 == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso não encontrado!");
         } else {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+            repository.update(id, curso);
+            return ResponseEntity.status(HttpStatus.OK).body("Curso "+curso1.getNome()+" atualizado com sucesso!");
         }
     }
 
     public ResponseEntity<String> updateAluno(int idCurso, int idAluno, Aluno aluno){
-        boolean curso =  repository.updateAluno(idCurso, idAluno, aluno);
-        if (curso) {
-            return ResponseEntity.status(HttpStatus.OK).body("Aluno atualizado com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        Curso curso =  repository.getById(idCurso);
+        Curso aluno1 = repository.getById(idAluno);
+        if (curso == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso não encontrado!");
+        } if(aluno1 == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado!");
+        }else {
+            repository.updateAluno(idCurso, idAluno, aluno);
+            return ResponseEntity.status(HttpStatus.OK).body("Aluno "+aluno.getNome()+" atualizado com sucesso!");
         }
     }
 
     public ResponseEntity<String> delete(int id){
-        boolean result = repository.delete(id);
-        if(result){
-            return ResponseEntity.status(HttpStatus.OK).body("Curso deletado com sucesso!");
+        Curso curso = repository.getById(id);
+        if(curso == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso "+curso.getNome()+" não encontrado!");
         }else{
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+            repository.delete(id);
+            return ResponseEntity.ok("Curso "+ curso.getNome() +" deletado com sucesso!");
         }
     }
 }
