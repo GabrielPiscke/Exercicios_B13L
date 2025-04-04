@@ -73,28 +73,28 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body( "Não foi possível inserir alunos");
     }
 
-    public ResponseEntity<Curso> update(int id, Curso curso){
-        boolean result = repository.update(id, curso);
+    public ResponseEntity<String> update(int id, Curso curso){
+        Boolean result = repository.update(id, curso);
         if(result) {
-            return ResponseEntity.status(HttpStatus.OK).body(curso);
+            return ResponseEntity.status(HttpStatus.OK).body("Curso atualizado com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
     }
 
-    public ResponseEntity<Boolean> updateAluno(int idCurso, int idAluno, Aluno aluno){
+    public ResponseEntity<String> updateAluno(int idCurso, int idAluno, Aluno aluno){
         boolean curso =  repository.updateAluno(idCurso, idAluno, aluno);
         if (curso) {
-            return ResponseEntity.status(HttpStatus.OK).body(curso);
+            return ResponseEntity.status(HttpStatus.OK).body("Aluno atualizado com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
     }
 
-    public ResponseEntity<Boolean> delete(int id){
+    public ResponseEntity<String> delete(int id){
         boolean result = repository.delete(id);
         if(result){
-            return ResponseEntity.status(HttpStatus.OK).body(result);
+            return ResponseEntity.status(HttpStatus.OK).body("Curso deletado com sucesso!");
         }else{
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }

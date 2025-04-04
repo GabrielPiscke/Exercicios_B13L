@@ -53,17 +53,17 @@ public class CursoView {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> update(@RequestBody Curso curso, @PathVariable int id){
+    public ResponseEntity<String> update(@RequestBody Curso curso, @PathVariable int id){
         return cursoController.update(id, curso);
     }
 
     @PutMapping("/{idCurso}/aluno/{idAluno}")
-    public ResponseEntity<Boolean> updateAluno(@PathVariable int idCurso, @PathVariable int idAluno, @RequestBody Aluno aluno){
+    public ResponseEntity<String> updateAluno(@PathVariable int idCurso, @PathVariable int idAluno, @RequestBody Aluno aluno){
         return cursoController.updateAluno(idCurso, idAluno, aluno);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable int id){
+    public ResponseEntity<String> delete(@PathVariable int id){
         return cursoController.delete(id);
     }
 }
